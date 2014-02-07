@@ -2,7 +2,7 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "0.1"
+version := "0.2-SNAPSHOT"
 
 scalaVersion := "2.10.3"
 
@@ -14,3 +14,22 @@ libraryDependencies ++= Seq(
   "junit" % "junit" % "4.10" % "test",
   "com.novocode" % "junit-interface" % "0.7" % "test"
 )
+
+publishTo <<= version { (v: String) =>
+  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
+  if (v.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "thirdparty-snapshots/")
+  else
+    Some("releases"  at nexus + "thirdparty/")
+}
+
+credentials += Credentials(Path.userHome / ".ivy_credentials")
+
+publishMavenStyle := true
+ 
+publishArtifact in Test := false
+ 
+publishArtifact in packageDoc := false
+
+pomIncludeRepository := { x => false }
+ 
