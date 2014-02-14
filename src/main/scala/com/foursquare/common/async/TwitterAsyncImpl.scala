@@ -42,4 +42,10 @@ object TwitterAsyncImpl extends AsyncBase {
                                           (execContext: c.Expr[futureSystem.ExecContext]): c.Expr[futureSystem.Fut[T]] = {
     super.asyncImpl[T](c)(body)(execContext)
   }
+
+  def asyncImplExplicit[T: c.WeakTypeTag](c: Context)
+                                         (execContext: c.Expr[futureSystem.ExecContext])
+                                         (body: c.Expr[T]): c.Expr[futureSystem.Fut[T]] = {
+    super.asyncImpl[T](c)(body)(execContext)
+  }
 }

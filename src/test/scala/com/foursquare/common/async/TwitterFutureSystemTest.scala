@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class TwitterFutureSystemTest {
   @Test
-  def testBasicAsync {
+  def testBasicAsync() {
     val f1: Future[Int] = Future.value(5)
     val f2: Future[Int] = Future.value(10)
     val f3 = async {
@@ -18,6 +18,18 @@ class TwitterFutureSystemTest {
       val v2 = await(f2)
       v1 + v2
     }
-    T.assertEquals(Await.result(f3, Duration(5, TimeUnit.SECONDS)), 15)
+    T.assertEquals(Await.result(f3, Duration(2, TimeUnit.SECONDS)), 15)
+  }
+
+  @Test
+  def testExplicitAsync() {
+    val f1: Future[Int] = Future.value(5)
+    val f2: Future[Int] = Future.value(10)
+    val f3 = async(global) {
+      val v1 = await(f1)
+      val v2 = await(f2)
+      v1 + v2
+    }
+    T.assertEquals(Await.result(f3, Duration(2, TimeUnit.SECONDS)), 15)
   }
 }

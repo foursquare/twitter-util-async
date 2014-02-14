@@ -37,11 +37,18 @@ import scala.language.experimental.macros
 import scala.reflect.internal.annotations.compileTimeOnly
 
 object Async {
+
   /**
    * Run the block of code `body` asynchronously. `body` may contain calls to `await` when the results of
    * a `Future` are needed; this is translated into non-blocking code.
    */
   def async[T](body: T)(implicit execContext: ExecutionContext): Future[T] = macro TwitterAsyncImpl.asyncImpl[T]
+
+  /**
+   * Run the block of code `body` asynchronously. `body` may contain calls to `await` when the results of
+   * a `Future` are needed; this is translated into non-blocking code.
+   */
+  def async[T](execContext: ExecutionContext)(body: T): Future[T] = macro TwitterAsyncImpl.asyncImplExplicit[T]
 
   /**
    * Non-blocking await on the result of `awaitable`. This may only be used directly within an enclosing `async` block.
