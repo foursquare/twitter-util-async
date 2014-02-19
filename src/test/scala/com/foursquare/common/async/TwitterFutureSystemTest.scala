@@ -32,4 +32,20 @@ class TwitterFutureSystemTest {
     }
     T.assertEquals(Await.result(f3, Duration(2, TimeUnit.SECONDS)), 15)
   }
+
+  @Test
+  def testExceptions() {
+    val f1: Future[Int] = Future.exception(new IllegalArgumentException("foo"))
+    val f2 = async {
+      val v = await(f1)
+      2 * v
+    }
+    try {
+      Await.result(f2, Duration(2, TimeUnit.SECONDS))
+      T.fail("should have thrown an exception")
+    } catch {
+      case _: IllegalArgumentException => // pass
+      case _: Exception => T.fail("unexpected exception")
+    }
+  }
 }
