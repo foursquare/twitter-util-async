@@ -15,15 +15,23 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.7" % "test"
 )
 
-publishTo <<= version { (v: String) =>
-  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "thirdparty-snapshots/")
+//publishTo <<= version { (v: String) =>
+//  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
+//  if (v.trim.endsWith("SNAPSHOT"))
+//    Some("snapshots" at nexus + "thirdparty-snapshots/")
+//  else
+//    Some("releases"  at nexus + "thirdparty/")
+//}
+//
+//credentials += Credentials(Path.userHome / ".ivy_credentials")
+//
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases"  at nexus + "thirdparty/")
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
-
-credentials += Credentials(Path.userHome / ".ivy_credentials")
 
 publishMavenStyle := true
  
@@ -31,5 +39,25 @@ publishArtifact in Test := false
  
 publishArtifact in packageDoc := false
 
-pomIncludeRepository := { x => false }
+pomIncludeRepository := { _ => false }
+
+pomExtra := (
+  <url>https://github.com/foursquare/twitter-util-async</url>
+  <licenses>
+    <license>
+      <name>BSD-style</name>
+      <url>http://www.scala-lang.org/license.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:foursquare/twitter-util-async.git</url>
+    <connection>scm:git@github.com:foursquare/twitter-util-async.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>tdyas-4sq</id>
+      <name>Tom Dyas</name>
+    </developer>
+  </developers>)
  
