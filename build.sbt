@@ -6,8 +6,6 @@ version := "0.4-SNAPSHOT"
 
 scalaVersion := "2.10.4"
 
-resolvers += "Foursquare Nexus" at "http://nexus.prod.foursquare.com/nexus/content/groups/public/"
-
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-async" % "0.9.1",
   "com.twitter" %% "util-core" % "6.5.0",
