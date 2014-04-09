@@ -2,7 +2,7 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "0.4-SNAPSHOT"
+version := "1.0.0"
 
 scalaVersion := "2.10.4"
 
@@ -35,8 +35,6 @@ publishMavenStyle := true
  
 publishArtifact in Test := false
  
-publishArtifact in packageDoc := false
-
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
