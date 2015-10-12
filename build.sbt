@@ -2,9 +2,9 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "1.1.0-SNAPSHOT"
+version := "1.1.0"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-async" % "0.9.1",
@@ -13,23 +13,23 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.7" % "test"
 )
 
-//publishTo <<= version { (v: String) =>
-//  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
-//  if (v.trim.endsWith("SNAPSHOT"))
-//    Some("snapshots" at nexus + "thirdparty-snapshots/")
-//  else
-//    Some("releases"  at nexus + "thirdparty/")
-//}
-//
-//credentials += Credentials(Path.userHome / ".ivy_credentials")
-//
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
+publishTo <<= version { (v: String) =>
+  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
+  if (v.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "thirdparty-snapshots/")
   else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    Some("releases"  at nexus + "thirdparty/")
 }
+
+credentials += Credentials(Path.userHome / ".ivy_credentials")
+
+//publishTo := {
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//}
 
 publishMavenStyle := true
  
