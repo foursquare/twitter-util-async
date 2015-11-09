@@ -34,10 +34,8 @@ package com.foursquare.common.async
 import com.twitter.util.Future
 import scala.concurrent.ExecutionContext
 import scala.language.experimental.macros
-import scala.reflect.internal.annotations.compileTimeOnly
 
 object Async {
-
   /**
    * Run the block of code `body` asynchronously. `body` may contain calls to `await` when the results of
    * a `Future` are needed; this is translated into non-blocking code.
@@ -56,6 +54,6 @@ object Async {
    * Internally, this will register the remainder of the code in enclosing `async` block as a callback
    * in the `onComplete` handler of `awaitable`, and will *not* block a thread.
    */
-  @compileTimeOnly("`await` must be enclosed in an `async` block")
+  @scala.annotation.compileTimeOnly("`await` must be enclosed in an `async` block")
   def await[T](awaitable: Future[T]): T = ??? // No implementation here, as calls to this are translated to `onComplete` by the macro.
 }

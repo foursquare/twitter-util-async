@@ -2,15 +2,16 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "1.1.0"
+version := "1.2.0"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  "org.scala-lang.modules" %% "scala-async" % "0.9.1",
-  "com.twitter" %% "util-core" % "6.5.0",
-  "junit" % "junit" % "4.10" % "test",
-  "com.novocode" % "junit-interface" % "0.7" % "test"
+  "org.scala-lang" % "scala-reflect" % "2.11.7",
+  "org.scala-lang.modules" %% "scala-async" % "0.9.5",
+  "com.twitter" %% "util-core" % "6.24.0",
+  "junit" % "junit" % "4.12" % "test",
+  "com.novocode" % "junit-interface" % "0.11" % "test"
 )
 
 publishTo <<= version { (v: String) =>
@@ -32,9 +33,9 @@ credentials += Credentials(Path.userHome / ".ivy_credentials")
 //}
 
 publishMavenStyle := true
- 
+
 publishArtifact in Test := false
- 
+
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
@@ -56,4 +57,4 @@ pomExtra := (
       <name>Tom Dyas</name>
     </developer>
   </developers>)
- 
+

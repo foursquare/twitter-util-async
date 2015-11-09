@@ -31,7 +31,7 @@ package com.foursquare.common.async
 
 import scala.async.internal.FutureSystem
 import scala.concurrent.ExecutionContext
-import scala.reflect.internal.SymbolTable
+import scala.reflect.macros.Context
 
 /**
  * Implementation of [[scala.async.internal.FutureSystem]] for twitter-util Future's.
@@ -43,11 +43,9 @@ object TwitterFutureSystem extends FutureSystem {
   type ExecContext = ExecutionContext
   type Tryy[A] = com.twitter.util.Try[A]
 
-  def mkOps(c: SymbolTable): Ops { val universe: c.type } = new Ops {
-    val universe: c.type = c
-
-    import universe._
-    override def Expr[T: WeakTypeTag](tree: Tree): Expr[T] = universe.Expr[T](rootMirror, universe.FixedMirrorTreeCreator(rootMirror, tree))
+  def mkOps(c0: Context): Ops { val c: c0.type } = new Ops {
+    val c: c0.type = c0
+    import c.universe._
 
     def promType[A: WeakTypeTag]: Type = weakTypeOf[com.twitter.util.Promise[A]]
     def tryType[A: WeakTypeTag]: Type = weakTypeOf[com.twitter.util.Try[A]]
@@ -62,7 +60,7 @@ object TwitterFutureSystem extends FutureSystem {
     }
 
     def future[A: WeakTypeTag](a: Expr[A])(execContext: Expr[ExecContext]): Expr[Fut[A]] = reify {
-      val promise = com.twitter.util.Promise[A]() 
+      val promise = com.twitter.util.Promise[A]()
       execContext.splice.prepare().execute(new Runnable {
         def run() {
           try {
@@ -77,9 +75,9 @@ object TwitterFutureSystem extends FutureSystem {
     }
 
     def onComplete[A, U](
-        future: Expr[Fut[A]],
-        fun: Expr[com.twitter.util.Try[A] => U],
-        execContext: Expr[ExecContext]
+      future: Expr[Fut[A]],
+      fun: Expr[com.twitter.util.Try[A] => U],
+      execContext: Expr[ExecContext]
     ): Expr[Unit] = reify {
       val responder = fun.splice
       future.splice.respond(tryValue => {
@@ -89,12 +87,12 @@ object TwitterFutureSystem extends FutureSystem {
           }
         })
       })
-      Expr[Unit](Literal(Constant(()))).splice
+      ()
     }
 
     def completeProm[A](prom: Expr[Prom[A]], value: Expr[Tryy[A]]): Expr[Unit] = reify {
       prom.splice.update(value.splice)
-      Expr[Unit](Literal(Constant(()))).splice
+      ()
     }
 
     def tryyIsFailure[A](tryy: Expr[Tryy[A]]): Expr[Boolean] = reify {
