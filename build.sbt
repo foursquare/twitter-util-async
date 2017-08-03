@@ -2,12 +2,12 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "1.2.0"
+version := "1.2.1"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % "2.11.7",
+  "org.scala-lang" % "scala-reflect" % "2.11.8",
   "org.scala-lang.modules" %% "scala-async" % "0.9.5",
   "com.twitter" %% "util-core" % "6.24.0",
   "junit" % "junit" % "4.12" % "test",
