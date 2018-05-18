@@ -31,7 +31,7 @@ package com.foursquare.common.async
 
 import scala.async.internal.FutureSystem
 import scala.concurrent.ExecutionContext
-import scala.reflect.macros.Context
+import scala.reflect.macros.whitebox.Context
 
 /**
  * Implementation of [[scala.async.internal.FutureSystem]] for twitter-util Future's.

@@ -8,7 +8,7 @@ twitter-util-async adapts the [scala-async library](https://github.com/scala/asy
 
 Just add the following dependency to your SBT configuration:
 
-    libraryDependencies += "com.foursquare" %% "twitter-util-async" % "1.0.0"
+    libraryDependencies += "com.foursquare" %% "twitter-util-async" % "1.3.0"
 
 See the documentation for [scala-async](https://github.com/scala/async) for information on how to use `async`
 and `await`. The main difference is that you must import `com.foursquare.common.async.Async.{async, await}`

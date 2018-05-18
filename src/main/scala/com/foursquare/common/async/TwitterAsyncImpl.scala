@@ -31,7 +31,7 @@ package com.foursquare.common.async
 
 import scala.async.internal.AsyncBase
 import scala.language.experimental.macros
-import scala.reflect.macros.Context
+import scala.reflect.macros.whitebox.Context
 
 object TwitterAsyncImpl extends AsyncBase {
   type FS = TwitterFutureSystem.type
