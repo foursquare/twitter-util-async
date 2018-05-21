@@ -2,27 +2,29 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "1.2.1"
+version := "1.3.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.6"
+
+crossScalaVersions := Seq("2.11.12", "2.12.6")
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % "2.11.8",
-  "org.scala-lang.modules" %% "scala-async" % "0.9.5",
-  "com.twitter" %% "util-core" % "6.24.0",
+  "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  "org.scala-lang.modules" %% "scala-async" % "0.9.7",
+  "com.twitter" %% "util-core" % "18.5.0",
   "junit" % "junit" % "4.12" % "test",
   "com.novocode" % "junit-interface" % "0.11" % "test"
 )
 
-publishTo <<= version { (v: String) =>
-  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "thirdparty-snapshots/")
-  else
-    Some("releases"  at nexus + "thirdparty/")
-}
+//publishTo <<= version { (v: String) =>
+//  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
+//  if (v.trim.endsWith("SNAPSHOT"))
+//    Some("snapshots" at nexus + "thirdparty-snapshots/")
+//  else
+//    Some("releases"  at nexus + "thirdparty/")
+//}
 
-credentials += Credentials(Path.userHome / ".ivy_credentials")
+//credentials += Credentials(Path.userHome / ".ivy_credentials")
 
 //publishTo := {
 //  val nexus = "https://oss.sonatype.org/"
