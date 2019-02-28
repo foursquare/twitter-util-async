@@ -31,7 +31,7 @@ package com.foursquare.common.async
 
 import scala.async.internal.FutureSystem
 import scala.concurrent.ExecutionContext
-import scala.reflect.macros.Context
+import scala.reflect.macros.whitebox
 
 /**
  * Implementation of [[scala.async.internal.FutureSystem]] for twitter-util Future's.
@@ -43,7 +43,7 @@ object TwitterFutureSystem extends FutureSystem {
   type ExecContext = ExecutionContext
   type Tryy[A] = com.twitter.util.Try[A]
 
-  def mkOps(c0: Context): Ops { val c: c0.type } = new Ops {
+  def mkOps(c0: whitebox.Context): Ops { val c: c0.type } = new Ops {
     val c: c0.type = c0
     import c.universe._
 
