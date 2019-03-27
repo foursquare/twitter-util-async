@@ -17,11 +17,11 @@ libraryDependencies ++= Seq(
 )
 
 publishTo := {
-  val nexus = "http://nexus.prod.foursquare.com/nexus/content/repositories/"
+  val jfrog = "https://foursquaredev.jfrog.io/foursquaredev/"
   if (isSnapshot.value)
-    Some("snapshots" at nexus + "thirdparty-snapshots/")
+    Some("snapshots" at jfrog + "thirdparty-snapshots/")
   else
-    Some("releases"  at nexus + "thirdparty/")
+    Some("central"  at jfrog + "thirdparty/")
 }
 
 credentials += Credentials(Path.userHome / ".ivy_credentials")
