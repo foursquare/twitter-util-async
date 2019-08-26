@@ -61,7 +61,7 @@ object TwitterFutureSystem extends FutureSystem {
 
     def future[A: WeakTypeTag](a: Expr[A])(execContext: Expr[ExecContext]): Expr[Fut[A]] = reify {
       val promise = com.twitter.util.Promise[A]()
-      execContext.splice.prepare().execute(new Runnable {
+      execContext.splice.execute(new Runnable {
         def run() {
           try {
             promise.setValue(a.splice)
@@ -81,7 +81,7 @@ object TwitterFutureSystem extends FutureSystem {
     ): Expr[Unit] = reify {
       val responder = fun.splice
       future.splice.respond(tryValue => {
-        execContext.splice.prepare().execute(new Runnable {
+        execContext.splice.execute(new Runnable {
           def run() {
             responder(tryValue)
           }

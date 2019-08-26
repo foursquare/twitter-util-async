@@ -2,7 +2,7 @@ organization := "com.foursquare"
 
 name := "twitter-util-async"
 
-version := "1.2.2"
+version := "1.2.3"
 
 isSnapshot := false
 
